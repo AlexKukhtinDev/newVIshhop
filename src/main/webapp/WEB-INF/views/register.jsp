@@ -15,6 +15,7 @@
 <body>
 Let's create a new user!
 <form action="${pageContext.request.contextPath}/registration" method="post">
+<form action="/ishop_war_exploded/registration" method="post">
     <div class="container">
         <%--@declare id="user_surname"--%><%--@declare id="user_name"--%><%--@declare id="psw-repeat"--%><%--@declare id="psw"--%><%--@declare id="login"--%>
         <h2>Register</h2>
@@ -43,6 +44,7 @@ Let's create a new user!
         <button type="submit" class="registerbtn">Register</button>
         <p>Already have an account?
             <a href="${pageContext.request.contextPath}/login">Sign in</a></p>
+            <a href="/ishop_war_exploded/login">Sign in</a></p>
     </div>
 </form>
 </body>
