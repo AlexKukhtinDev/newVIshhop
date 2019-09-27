@@ -2,6 +2,7 @@ package com.akukhtin.ishop.dao.impl;
 
 import com.akukhtin.ishop.dao.Storage;
 import com.akukhtin.ishop.dao.UserDao;
+import com.akukhtin.ishop.lib.Dao;
 import com.akukhtin.ishop.model.User;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.Optional;
 
 import javax.naming.AuthenticationException;
 
+@Dao
 public class UserDaoImpl implements UserDao {
 
     @Override

@@ -37,7 +37,7 @@
     </c:forEach>
 </table>
 <br>
-<a href="/ishop_war_exploded/servlet/allOrders"><button type="submit" class="registerbtn">All Orders</button></a>
+<a href="${pageContext.request.contextPath}/servlet/allOrders"><button type="submit" class="registerbtn">All Orders</button></a>
 <br>
 <a href="/ishop_war_exploded/servlet/allItems"><button type="submit" class="registerbtn">All Items</button></a>
 

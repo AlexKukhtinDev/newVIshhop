@@ -38,6 +38,7 @@ public class CompleteOrderController extends HttpServlet {
         userService.get(userId).getOrders().add(order);
         bucketService.clear(bucketService.getByUser(userId).getId());
         req.setAttribute("items", items);
-        req.getRequestDispatcher("/WEB-INF/views/completeOrder.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/views/completeOrder.jsp")
+                .forward(req, resp);
     }
 }

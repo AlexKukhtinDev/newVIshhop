@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class GetBucketController extends HttpServlet {
+
     @Inject
     private static BucketService bucketService;
 

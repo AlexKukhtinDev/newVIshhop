@@ -16,8 +16,27 @@ import com.akukhtin.ishop.service.impl.BucketServiceImpl;
 import com.akukhtin.ishop.service.impl.ItemServiceImpl;
 import com.akukhtin.ishop.service.impl.OrderServiceImpl;
 import com.akukhtin.ishop.service.impl.UserServiceImpl;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import org.apache.log4j.Logger;
 
 public class Factory {
+
+    private static Logger logger = Logger.getLogger(Factory.class);
+    private static Connection connection;
+
+    static {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager
+                    .getConnection("jdbc:mysql://localhost:3306/ishop?serverTimezone=UTC&"
+                            + "user=root&password=java1995");
+        } catch (ClassNotFoundException | SQLException e) {
+            logger.error("Can't established connection to db! ", e);
+        }
+    }
+
     private static ItemDao itemDaoInstanse;
     private static BucketDao bucketDaoInstanse;
     private static OrderDao orderDaoInstanse;
