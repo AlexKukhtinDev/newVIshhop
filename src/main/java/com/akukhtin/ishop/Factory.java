@@ -37,6 +37,7 @@ public class Factory {
         }
     }
 
+public class Factory {
     private static ItemDao itemDaoInstanse;
     private static BucketDao bucketDaoInstanse;
     private static OrderDao orderDaoInstanse;

@@ -13,6 +13,7 @@ public class Injector {
     private static List<Class> classes = new ArrayList<>();
 
     private static final String PROJECT_MAIN_PACKAGE = "com.akukhtin.ishop";
+    private static final String PROJECT_MAIN_PACKAGE = "internetshop";
 
     static {
         try {
