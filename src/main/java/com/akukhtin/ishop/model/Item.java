@@ -20,6 +20,12 @@ public class Item {
         this.price = price;
     }
 
+    public Item(long itemId, String name, double price) {
+        this.id = itemId;
+        this.name = name;
+        this.price = price;
+    }
+
     public Long getId() {
         return id;
     }

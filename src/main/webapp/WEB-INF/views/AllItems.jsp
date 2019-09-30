@@ -35,12 +35,18 @@
                 <c:out value="${item.price}" />
             </td>
             <td>
+                <a href="${pageContext.request.contextPath}/servlet/addItemToBucket?item_id=${item.id}">ADD</a>
                 <a href="/ishop_war_exploded/servlet/addItemToBucket?item_id=${item.id}">ADD</a>
             </td>
         </tr>
     </c:forEach>
 </table>
 <br>
+<a href="${pageContext.request.contextPath}/servlet/addItem"><button type="submit" class="registerbtn">New Item</button></a>
+<br>
+<a href="${pageContext.request.contextPath}/injectData"><button type="submit" class="registerbtn">Inject Data</button></a>
+<br>
+<a href="${pageContext.request.contextPath}/servlet/bucket"><button type="submit" class="registerbtn">Bucket</button></a>
 <a href="/ishop_war_exploded/servlet/addItem"><button type="submit" class="registerbtn">New Item</button></a>
 <br>
 <a href="/ishop_war_exploded/injectData"><button type="submit" class="registerbtn">Inject Data</button></a>

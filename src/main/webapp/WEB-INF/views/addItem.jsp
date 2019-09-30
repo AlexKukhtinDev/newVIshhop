@@ -14,6 +14,7 @@
 </head>
 <body>
 Let's create a new user!
+<form action="${pageContext.request.contextPath}/servlet/addItem" method="post">
 <form action="/ishop_war_exploded/servlet/addItem" method="post">
     <div class="container">
         <%--@declare id="user_surname"--%><%--@declare id="user_name"--%><%--@declare id="psw-repeat"--%><%--@declare id="psw"--%><%--@declare id="login"--%><%--@declare id="price"--%><%--@declare id="model"--%><%--@declare id="item_name"--%>

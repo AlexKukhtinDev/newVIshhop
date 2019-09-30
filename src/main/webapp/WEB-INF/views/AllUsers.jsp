@@ -42,6 +42,7 @@ Users:
                 <c:out value="${user.surname}" />
             </td>
             <td>
+                <a href="${pageContext.request.contextPath}/servlet/deleteUser?user_id=${user.id}">DELETE</a>
                 <a href="/ishop_war_exploded/servlet/deleteUser?user_id=${user.id}">DELETE</a>
             </td>
         </tr>

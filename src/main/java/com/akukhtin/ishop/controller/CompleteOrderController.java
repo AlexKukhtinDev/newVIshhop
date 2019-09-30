@@ -6,11 +6,9 @@ import com.akukhtin.ishop.model.Order;
 import com.akukhtin.ishop.service.BucketService;
 import com.akukhtin.ishop.service.OrderService;
 import com.akukhtin.ishop.service.UserService;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -38,6 +36,8 @@ public class CompleteOrderController extends HttpServlet {
         userService.get(userId).getOrders().add(order);
         bucketService.clear(bucketService.getByUser(userId).getId());
         req.setAttribute("items", items);
+        req.getRequestDispatcher("/WEB-INF/views/completeOrder.jsp")
+                .forward(req, resp);
         req.getRequestDispatcher("/WEB-INF/views/completeOrder.jsp").forward(req, resp);
     }
 }

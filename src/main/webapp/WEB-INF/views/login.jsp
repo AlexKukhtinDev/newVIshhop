@@ -32,6 +32,7 @@ Login page
 </form>
 <br>
 If you don't have account:
+<a href="${pageContext.request.contextPath}/registration">Registration</a>
 <a href="/ishop_war_exploded/registration">Registration</a>
 </body>
 </html>

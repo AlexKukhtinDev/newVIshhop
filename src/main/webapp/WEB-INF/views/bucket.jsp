@@ -35,12 +35,16 @@ Items in bucket:
                 <c:out value="${item.price}" />
             </td>
             <td>
+                <a href="${pageContext.request.contextPath}/servlet/deleteFromBucket?item_id=${item.id}">DEL</a>
                 <a href="/ishop_war_exploded/servlet/deleteFromBucket?item_id=${item.id}">DEL</a>
             </td>
         </tr>
     </c:forEach>
 </table>
 <br>
+<a href="${pageContext.request.contextPath}/servlet/completeOrder"><button type="submit" class="registerbtn">Complete Order</button></a>
+<br>
+<a href="${pageContext.request.contextPath}/servlet/allItems"><button type="submit" class="registerbtn">All Items</button></a>
 <a href="/ishop_war_exploded/servlet/completeOrder"><button type="submit" class="registerbtn">Complete Order</button></a>
 <br>
 <a href="/ishop_war_exploded/servlet/allItems"><button type="submit" class="registerbtn">All Items</button></a>
