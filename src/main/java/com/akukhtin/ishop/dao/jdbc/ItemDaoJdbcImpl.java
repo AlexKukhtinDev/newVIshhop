@@ -3,14 +3,12 @@ package com.akukhtin.ishop.dao.jdbc;
 import com.akukhtin.ishop.dao.ItemDao;
 import com.akukhtin.ishop.lib.Dao;
 import com.akukhtin.ishop.model.Item;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
-
 import org.apache.log4j.Logger;
 
 @Dao

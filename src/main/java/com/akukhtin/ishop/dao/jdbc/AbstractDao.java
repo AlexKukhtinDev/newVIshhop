@@ -3,7 +3,6 @@ package com.akukhtin.ishop.dao.jdbc;
 import java.sql.Connection;
 
 public class AbstractDao<T> {
-
     protected final Connection connection;
 
     public AbstractDao(Connection connection) {
