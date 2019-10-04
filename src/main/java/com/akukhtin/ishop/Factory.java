@@ -4,10 +4,11 @@ import com.akukhtin.ishop.dao.BucketDao;
 import com.akukhtin.ishop.dao.ItemDao;
 import com.akukhtin.ishop.dao.OrderDao;
 import com.akukhtin.ishop.dao.UserDao;
-import com.akukhtin.ishop.dao.impl.BucketDaoImpl;
-import com.akukhtin.ishop.dao.impl.ItemDaoImpl;
-import com.akukhtin.ishop.dao.impl.OrderDaoImpl;
-import com.akukhtin.ishop.dao.impl.UserDaoImpl;
+
+import com.akukhtin.ishop.dao.jdbc.BucketDaoJdbcImpl;
+import com.akukhtin.ishop.dao.jdbc.ItemDaoJdbcImpl;
+import com.akukhtin.ishop.dao.jdbc.OrderDaoJdbcImpl;
+import com.akukhtin.ishop.dao.jdbc.UserDaoJdbcImpl;
 import com.akukhtin.ishop.service.BucketService;
 import com.akukhtin.ishop.service.ItemService;
 import com.akukhtin.ishop.service.OrderService;
@@ -29,15 +30,13 @@ public class Factory {
     static {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager
-                    .getConnection("jdbc:mysql://localhost:3306/ishop?serverTimezone=UTC&"
-                            + "user=root&password=java1995");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/internetshop?"
+                    + "user=root&password=sqalzfrfvT1&serverTimezone=UTC");
         } catch (ClassNotFoundException | SQLException e) {
-            logger.error("Can't established connection to db! ", e);
+            logger.error("Can't establish connection to our DB", e);
         }
     }
 
-public class Factory {
     private static ItemDao itemDaoInstanse;
     private static BucketDao bucketDaoInstanse;
     private static OrderDao orderDaoInstanse;
@@ -77,28 +76,28 @@ public class Factory {
 
     public static ItemDao getItemDao() {
         if (itemDaoInstanse == null) {
-            itemDaoInstanse = new ItemDaoImpl();
+            itemDaoInstanse = new ItemDaoJdbcImpl(connection);
         }
         return itemDaoInstanse;
     }
 
     public static BucketDao getBucketDao() {
         if (bucketDaoInstanse == null) {
-            bucketDaoInstanse = new BucketDaoImpl();
+            bucketDaoInstanse = new BucketDaoJdbcImpl(connection);
         }
         return bucketDaoInstanse;
     }
 
     public static OrderDao getOrderDao() {
         if (orderDaoInstanse == null) {
-            orderDaoInstanse = new OrderDaoImpl();
+            orderDaoInstanse = new OrderDaoJdbcImpl(connection);
         }
         return orderDaoInstanse;
     }
 
     public static UserDao getUserDao() {
         if (userDaoInstanse == null) {
-            userDaoInstanse = new UserDaoImpl();
+            userDaoInstanse = new UserDaoJdbcImpl(connection);
         }
         return userDaoInstanse;
     }

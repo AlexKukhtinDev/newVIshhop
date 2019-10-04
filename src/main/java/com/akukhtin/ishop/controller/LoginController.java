@@ -5,6 +5,7 @@ import com.akukhtin.ishop.model.User;
 import com.akukhtin.ishop.service.UserService;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import javax.naming.AuthenticationException;
 import javax.servlet.ServletException;
@@ -31,15 +32,15 @@ public class LoginController extends HttpServlet {
         String login = req.getParameter("login");
         String password = req.getParameter("psw");
         try {
-            User user = userService.login(login, password);
+            Optional<User> user = userService.login(login, password);
 
             HttpSession session = req.getSession(true);
-            session.setAttribute("userId", user.getId());
+            session.setAttribute("userId", user.get().getId());
 
-            Cookie cookie = new Cookie("Mate", user.getToken());
+            Cookie cookie = new Cookie("Mate", user.get().getToken());
             resp.addCookie(cookie);
             resp.sendRedirect(req.getContextPath() + "/servlet/allItems");
-        } catch (AuthenticationException e) {
+        } catch (AuthenticationException | com.akukhtin.ishop.exeptions.AuthenticationException e) {
             req.setAttribute("errorMessage", "Incorrect login or password");
             req.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(req, resp);
         }
