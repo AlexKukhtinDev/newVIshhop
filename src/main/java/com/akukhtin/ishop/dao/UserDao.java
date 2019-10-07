@@ -19,12 +19,14 @@ public interface UserDao {
 
     void delete(Long id);
 
-    default Optional<User> login(String login, String password)
-            throws AuthenticationException, com.akukhtin.ishop.exeptions.AuthenticationException {
-        return Optional.empty();
-    }
+    Optional<User> login(String login, String password) throws AuthenticationException;
 
     Optional<User> getByToken(String token);
 
     Optional<List<Order>> getOrders(Long userId);
+
+    Optional<User> addRole(Long userId, Long roleId);
+
+    Optional<User> setUser(Long id, String name, String surname,
+                           String login, String password, String token);
 }

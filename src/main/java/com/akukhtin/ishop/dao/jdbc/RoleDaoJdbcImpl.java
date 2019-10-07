@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Optional;
 import org.apache.log4j.Logger;
 
@@ -18,6 +19,22 @@ public class RoleDaoJdbcImpl extends AbstractDao<Role> implements RoleDao {
 
     @Override
     public Optional<Role> create(Role role) {
+        String query = "INSERT INTO roles (name) VALUES (?);";
+        try (PreparedStatement preparedStatement
+                     = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+            preparedStatement.setString(1, role.getName());
+            preparedStatement.executeUpdate();
+            try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    role.setId(generatedKeys.getLong(1));
+                    return Optional.of(role);
+                } else {
+                    throw new SQLException("Creating role failed, no ID obtained.");
+                }
+            }
+        } catch (SQLException e) {
+            logger.error("Can't create role");
+        }
         return Optional.empty();
     }
 
@@ -37,18 +54,35 @@ public class RoleDaoJdbcImpl extends AbstractDao<Role> implements RoleDao {
             }
             return Optional.of(role);
         } catch (SQLException e) {
-            logger.error("Can't get order");
+            logger.error("Can't get role");
         }
         return Optional.empty();
     }
 
     @Override
     public Optional<Role> update(Role role) {
+        String query = "UPDATE roles SET name = ? WHERE role_id = ?;";
+        try (PreparedStatement preparedStatement
+                     = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, role.getName());
+            preparedStatement.setLong(2, role.getId());
+            preparedStatement.executeUpdate();
+            return Optional.of(role);
+        } catch (SQLException e) {
+            logger.error("Can't update role");
+        }
         return Optional.empty();
     }
 
     @Override
     public void delete(Long id) {
-
+        String query = "DELETE FROM roles WHERE role_id = ?;";
+        try (PreparedStatement preparedStatement
+                     = connection.prepareStatement(query)) {
+            preparedStatement.setLong(1, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.error("Can't delete role");
+        }
     }
 }

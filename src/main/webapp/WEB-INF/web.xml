@@ -157,7 +157,8 @@
 
         <filter-name>auth-filter</filter-name>
         <filter-class>com.akukhtin.ishop.web.filters.AutentificationFilter</filter-class>
-    </filter>
+    </filter-mapping>
+
     <filter-mapping>
         <filter-name>auth-filter</filter-name>
 
@@ -174,7 +175,7 @@
 
         <filter-name>authorizationFilter</filter-name>
         <filter-class>com.akukhtin.ishop.web.filters.AuthorisationFilter</filter-class>
-    </filter>
+    </filter-mapping>
     <filter-mapping>
         <filter-name>authorizationFilter</filter-name>
 

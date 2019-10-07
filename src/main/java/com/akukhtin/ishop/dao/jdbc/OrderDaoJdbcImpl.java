@@ -1,11 +1,11 @@
 package com.akukhtin.ishop.dao.jdbc;
 
+import com.akukhtin.ishop.dao.ItemDao;
 import com.akukhtin.ishop.dao.OrderDao;
 import com.akukhtin.ishop.lib.Dao;
 import com.akukhtin.ishop.lib.Inject;
 import com.akukhtin.ishop.model.Item;
 import com.akukhtin.ishop.model.Order;
-import com.akukhtin.ishop.service.ItemService;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,7 +21,7 @@ public class OrderDaoJdbcImpl extends AbstractDao<Order> implements OrderDao {
     private static Logger logger = Logger.getLogger(OrderDaoJdbcImpl.class);
 
     @Inject
-    private static ItemService itemService;
+    private static ItemDao itemDao;
 
     public OrderDaoJdbcImpl(Connection connection) {
         super(connection);
@@ -45,17 +45,8 @@ public class OrderDaoJdbcImpl extends AbstractDao<Order> implements OrderDao {
             logger.error("Can't create order");
         }
 
-        String insertOrderItemQuery = "INSERT INTO `orders_items`"
-                + " (`order_id`, `item_id`) VALUES (?, ?);";
         for (Item item : order.getItems()) {
-            try (PreparedStatement preparedStatement
-                         = connection.prepareStatement(insertOrderItemQuery)) {
-                preparedStatement.setLong(1, order.getId());
-                preparedStatement.setLong(2, item.getId());
-                preparedStatement.executeUpdate();
-            } catch (SQLException e) {
-                logger.error("Can't create order_item");
-            }
+            addItem(order.getId(), item.getId());
         }
         return Optional.of(order);
     }
@@ -75,7 +66,7 @@ public class OrderDaoJdbcImpl extends AbstractDao<Order> implements OrderDao {
                 long itemId = resultSet.getLong("item_id");
                 order.setId(orderId);
                 order.setUserId(userId);
-                Optional<Item> item = itemService.get(itemId);
+                Optional<Item> item = itemDao.get(itemId);
                 order.getItems().add(item.get());
             }
             return Optional.of(order);
@@ -142,5 +133,19 @@ public class OrderDaoJdbcImpl extends AbstractDao<Order> implements OrderDao {
     @Override
     public Optional<Order> deleteByOrder(Order order) {
         return Optional.empty();
+    }
+
+    @Override
+    public Optional<Order> addItem(Long orderId, Long itemId) {
+        String query = "INSERT INTO `orders_items` (`order_id`, `item_id`) VALUES (?, ?);";
+        try (PreparedStatement preparedStatement
+                     = connection.prepareStatement(query)) {
+            preparedStatement.setLong(1, orderId);
+            preparedStatement.setLong(2, itemId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.error("Can't add item");
+        }
+        return get(orderId);
     }
 }
