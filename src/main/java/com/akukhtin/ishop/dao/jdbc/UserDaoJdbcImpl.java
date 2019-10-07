@@ -206,7 +206,7 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
     }
 
     @Override
-    public Optional<List<Order>> getOrders(Long userId) {
+    public List<Order> getOrders(Long userId) {
         String query = "SELECT order_id FROM orders WHERE user_id = ?;";
         List<Order> orders = new ArrayList<>();
         try (PreparedStatement preparedStatement
@@ -218,11 +218,11 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
                 Optional<Order> order = orderDao.get(orderId);
                 orders.add(order.get());
             }
-            return Optional.of(orders);
+            return orders;
         } catch (SQLException e) {
             logger.error("Can't get all orders");
         }
-        return Optional.empty();
+        return null;
     }
 
     @Override

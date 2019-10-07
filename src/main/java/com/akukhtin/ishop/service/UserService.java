@@ -10,7 +10,7 @@ import javax.naming.AuthenticationException;
 
 public interface UserService {
 
-    Optional<List<Order>> getOrders(Long userId);
+    List<Order> getOrders(Long userId);
 
     Optional<User> create(User user);
 

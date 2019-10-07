@@ -10,8 +10,6 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import javax.naming.AuthenticationException;
-
 @Dao
 public class UserDaoImpl implements UserDao {
 
@@ -51,13 +49,13 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public Optional<User> login(String login, String password) throws AuthenticationException {
+    public Optional<User> login(String login, String password) {
         Optional<User> user = Storage.users
                 .stream()
                 .filter(u -> u.getLogin().equals(login))
                 .findFirst();
         if (user.isEmpty() || !user.get().getPassword().equals(password)) {
-            throw new AuthenticationException("Incorrect username or password");
+            throw new NoSuchElementException("Incorrect username or password");
         }
         return user;
     }
@@ -71,7 +69,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public Optional<List<Order>> getOrders(Long userId) {
+    public List<Order> getOrders(Long userId) {
         return null;
     }
 
