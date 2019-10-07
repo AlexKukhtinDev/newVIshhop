@@ -80,7 +80,16 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public Optional<User> setUser(Long id, String name, String surname,
-                                  String login, String password, String token) {
-        return Optional.empty();
+                                  String login, String password, byte[] salt, String token) {
+        User user = new User();
+        user.setId(id);
+        user.setName(name);
+        user.setSurname(surname);
+        user.setLogin(login);
+        user.setPassword(password);
+        user.setSalt(salt);
+        user.setToken(token);
+        return Optional.of(user);
     }
+
 }
