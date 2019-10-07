@@ -9,6 +9,10 @@ public class Item {
     private String model;
     private Double price;
 
+    public Item(Long id) {
+        this.id = id;
+    }
+
     public Item() {
         this.id = ItemIdGenerator.getGeneratedId();
     }
@@ -20,14 +24,12 @@ public class Item {
         this.price = price;
     }
 
-    public Item(long itemId, String name, double price) {
-        this.id = itemId;
-        this.name = name;
-        this.price = price;
-    }
-
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

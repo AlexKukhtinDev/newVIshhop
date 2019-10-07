@@ -13,7 +13,6 @@ public class Injector {
     private static List<Class> classes = new ArrayList<>();
 
     private static final String PROJECT_MAIN_PACKAGE = "com.akukhtin.ishop";
-    private static final String PROJECT_MAIN_PACKAGE = "internetshop";
 
     static {
         try {
@@ -57,13 +56,6 @@ public class Injector {
         return classes;
     }
 
-    /**
-     * Recursive method used to find all classes in a given directory and subdirs.
-     *
-     * @param directory   The base directory
-     * @param packageName The package name for classes found inside the base directory
-     * @return The classes
-     */
     private static List<Class> findClasses(File directory, String packageName)
             throws ClassNotFoundException {
         List<Class> classes = new ArrayList<Class>();

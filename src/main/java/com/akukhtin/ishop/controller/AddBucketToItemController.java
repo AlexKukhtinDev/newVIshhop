@@ -7,7 +7,6 @@ import com.akukhtin.ishop.service.UserService;
 
 import java.io.IOException;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,11 +22,10 @@ public class AddBucketToItemController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+            throws IOException {
         String itemId = req.getParameter("item_id");
         Long userId = (Long) req.getSession(true).getAttribute("userId");
-        bucketService.addItem(bucketService.getByUser(userId).getId(), Long.valueOf(itemId));
-        itemService.delete(Long.valueOf(itemId));
+        bucketService.addItem(bucketService.getByUser(userId).get().getId(), Long.valueOf(itemId));
         resp.sendRedirect(req.getContextPath() + "/servlet/allItems");
     }
 }

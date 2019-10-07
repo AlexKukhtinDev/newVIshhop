@@ -2,11 +2,13 @@ package com.akukhtin.ishop.controller;
 
 import com.akukhtin.ishop.lib.Inject;
 import com.akukhtin.ishop.model.Bucket;
+import com.akukhtin.ishop.model.Role;
 import com.akukhtin.ishop.model.User;
 import com.akukhtin.ishop.service.BucketService;
 import com.akukhtin.ishop.service.UserService;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -42,15 +44,18 @@ public class RegistrationController extends HttpServlet {
         newUser.setLogin(req.getParameter("login"));
         newUser.setName(req.getParameter("user_name"));
         newUser.setSurname(req.getParameter("user_surname"));
+        Role role = new Role();
+        role.setId(1L);
+        role.setName("USER");
+        newUser.addRole(role);
+        Optional<User> user = userService.create(newUser);
         Bucket newBucket = new Bucket(newUser);
         bucketService.create(newBucket);
-        newUser.setBucket(newBucket);
-        User user = userService.create(newUser);
 
         HttpSession session = req.getSession(true);
-        session.setAttribute("userId", user.getId());
+        session.setAttribute("userId", user.get().getId());
 
-        Cookie cookie = new Cookie("Mate", user.getToken());
+        Cookie cookie = new Cookie("Mate", user.get().getToken());
         resp.addCookie(cookie);
         resp.sendRedirect(req.getContextPath() + "/servlet/allItems");
     }

@@ -12,19 +12,18 @@ public interface UserService {
 
     List<Order> getOrders(Long userId);
 
-    User create(User user);
+    Optional<User> create(User user);
 
-    User get(Long id);
+    Optional<User> get(Long id);
 
-    List<User> getAll();
+    Optional<List<User>> getAll();
 
-    User update(User user);
+    Optional<User> update(User user);
 
-    User delete(Long id);
+    void delete(Long id);
 
-    User deleteByUser(User user);
-
-    User login(String login, String password) throws AuthenticationException;
+    Optional<User> login(String login, String password)
+            throws AuthenticationException, com.akukhtin.ishop.exeptions.AuthenticationException;
 
     Optional<User> getByToken(String token);
 }
