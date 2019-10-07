@@ -17,6 +17,7 @@ public class User {
     private List<Order> orders;
     private Bucket bucket = new Bucket(this);
     private Set<Role> roles = new HashSet<>();
+    private byte[] salt;
 
     public User() {
         this.id = UserIdGenerator.getGeneratedId();
@@ -103,5 +104,13 @@ public class User {
 
     public void addRole(Role role) {
         roles.add(role);
+    }
+
+    public byte[] getSalt() {
+        return salt;
+    }
+
+    public void setSalt(byte[] salt) {
+        this.salt = salt;
     }
 }
