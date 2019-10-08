@@ -6,8 +6,8 @@ import com.akukhtin.ishop.dao.OrderDao;
 import com.akukhtin.ishop.dao.RoleDao;
 import com.akukhtin.ishop.dao.UserDao;
 
+import com.akukhtin.ishop.dao.hibernate.ItemDaoHibernateImpl;
 import com.akukhtin.ishop.dao.jdbc.BucketDaoJdbcImpl;
-import com.akukhtin.ishop.dao.jdbc.ItemDaoJdbcImpl;
 import com.akukhtin.ishop.dao.jdbc.OrderDaoJdbcImpl;
 import com.akukhtin.ishop.dao.jdbc.RoleDaoJdbcImpl;
 import com.akukhtin.ishop.dao.jdbc.UserDaoJdbcImpl;
@@ -89,7 +89,7 @@ public class Factory {
 
     public static ItemDao getItemDao() {
         if (itemDaoInstanse == null) {
-            itemDaoInstanse = new ItemDaoJdbcImpl(connection);
+            itemDaoInstanse = new ItemDaoHibernateImpl();
         }
         return itemDaoInstanse;
     }
