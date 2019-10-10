@@ -1,6 +1,7 @@
 package com.akukhtin.ishop.service.impl;
 
 import com.akukhtin.ishop.dao.UserDao;
+import com.akukhtin.ishop.exeptions.AuthenticationException;
 import com.akukhtin.ishop.lib.Inject;
 import com.akukhtin.ishop.lib.Service;
 import com.akukhtin.ishop.model.Order;
@@ -10,8 +11,6 @@ import com.akukhtin.ishop.service.UserService;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
-import javax.naming.AuthenticationException;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -40,7 +39,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<List<User>> getAll() {
+    public List<User> getAll() {
         return userDao.getAll();
     }
 
@@ -55,8 +54,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> login(String login, String password)
-            throws AuthenticationException, com.akukhtin.ishop.exeptions.AuthenticationException {
+    public Optional<User> login(String login, String password) throws AuthenticationException {
         return userDao.login(login, password);
     }
 
