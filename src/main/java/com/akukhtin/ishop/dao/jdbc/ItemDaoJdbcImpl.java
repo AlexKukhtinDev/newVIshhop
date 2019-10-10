@@ -3,6 +3,7 @@ package com.akukhtin.ishop.dao.jdbc;
 import com.akukhtin.ishop.dao.ItemDao;
 import com.akukhtin.ishop.lib.Dao;
 import com.akukhtin.ishop.model.Item;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -74,7 +75,7 @@ public class ItemDaoJdbcImpl extends AbstractDao<Item> implements ItemDao {
     }
 
     @Override
-    public Optional<List<Item>> getAll() {
+    public List<Item> getAll() {
         List<Item> items = new ArrayList<>();
         String query = "SELECT * FROM items;";
         try (PreparedStatement preparedStatement
@@ -92,11 +93,11 @@ public class ItemDaoJdbcImpl extends AbstractDao<Item> implements ItemDao {
                 item.setPrice(price);
                 items.add(item);
             }
-            return Optional.of(items);
+            return items;
         } catch (SQLException e) {
             logger.error("Can't get order");
         }
-        return Optional.empty();
+        return null;
     }
 
     @Override
