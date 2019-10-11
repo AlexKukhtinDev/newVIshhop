@@ -16,7 +16,7 @@ public interface UserService {
 
     Optional<User> get(Long id);
 
-    Optional<List<User>> getAll();
+    List<User> getAll();
 
     Optional<User> update(User user);
 

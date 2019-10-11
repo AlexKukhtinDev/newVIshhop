@@ -3,6 +3,7 @@ package com.akukhtin.ishop.dao.jdbc;
 import com.akukhtin.ishop.dao.OrderDao;
 import com.akukhtin.ishop.dao.RoleDao;
 import com.akukhtin.ishop.dao.UserDao;
+import com.akukhtin.ishop.exeptions.AuthenticationException;
 import com.akukhtin.ishop.lib.Dao;
 import com.akukhtin.ishop.lib.Inject;
 import com.akukhtin.ishop.model.Order;
@@ -95,7 +96,7 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
     }
 
     @Override
-    public Optional<List<User>> getAll() {
+    public List<User> getAll() {
         String query = "SELECT * FROM users;";
         List<User> users = new ArrayList<>();
         try (PreparedStatement preparedStatement
@@ -112,11 +113,11 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
                 User user = setUser(userId, name, surname, login, password, salt, token).get();
                 users.add(user);
             }
-            return Optional.of(users);
+            return users;
         } catch (SQLException e) {
             logger.error("Can't get all orders");
         }
-        return Optional.empty();
+        return null;
     }
 
     @Override
@@ -175,7 +176,7 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
     }
 
     @Override
-    public Optional<User> login(String login, String password) {
+    public Optional<User> login(String login, String password) throws AuthenticationException {
         String query = "SELECT * FROM users WHERE login = ?;";
         Optional<User> user;
         try (PreparedStatement preparedStatement
@@ -249,9 +250,8 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
         return get(userId);
     }
 
-    @Override
-    public Optional<User> setUser(Long id, String name, String surname, String login,
-                                  String password, byte[] salt, String token) {
+    private Optional<User> setUser(Long id, String name, String surname, String login,
+                                   String password, byte[] salt, String token) {
         User user = new User();
         user.setId(id);
         user.setName(name);

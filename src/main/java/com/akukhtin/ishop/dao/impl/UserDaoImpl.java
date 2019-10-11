@@ -2,6 +2,7 @@ package com.akukhtin.ishop.dao.impl;
 
 import com.akukhtin.ishop.dao.Storage;
 import com.akukhtin.ishop.dao.UserDao;
+import com.akukhtin.ishop.exeptions.AuthenticationException;
 import com.akukhtin.ishop.lib.Dao;
 import com.akukhtin.ishop.model.Order;
 import com.akukhtin.ishop.model.User;
@@ -28,8 +29,8 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public Optional<List<User>> getAll() {
-        return Optional.of(Storage.users);
+    public List<User> getAll() {
+        return Storage.users;
     }
 
     @Override
@@ -49,13 +50,13 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public Optional<User> login(String login, String password) {
+    public Optional<User> login(String login, String password) throws AuthenticationException {
         Optional<User> user = Storage.users
                 .stream()
                 .filter(u -> u.getLogin().equals(login))
                 .findFirst();
         if (user.isEmpty() || !user.get().getPassword().equals(password)) {
-            throw new NoSuchElementException("Incorrect username or password");
+            throw new AuthenticationException("Incorrect username or password");
         }
         return user;
     }
@@ -77,19 +78,4 @@ public class UserDaoImpl implements UserDao {
     public Optional<User> addRole(Long userId, Long roleId) {
         return Optional.empty();
     }
-
-    @Override
-    public Optional<User> setUser(Long id, String name, String surname,
-                                  String login, String password, byte[] salt, String token) {
-        User user = new User();
-        user.setId(id);
-        user.setName(name);
-        user.setSurname(surname);
-        user.setLogin(login);
-        user.setPassword(password);
-        user.setSalt(salt);
-        user.setToken(token);
-        return Optional.of(user);
-    }
-
 }
