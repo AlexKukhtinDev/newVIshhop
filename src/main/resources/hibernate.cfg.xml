@@ -15,6 +15,10 @@
         <property name="hbm2ddl.auto">validate</property>
 
         <mapping class="com.akukhtin.ishop.model.Item" />
+        <mapping class="com.akukhtin.ishop.model.Role" />
+        <mapping class="com.akukhtin.ishop.model.User" />
+        <mapping class="com.akukhtin.ishop.model.Bucket" />
+        <mapping class="com.akukhtin.ishop.model.Order" />
     </session-factory>
 
 </hibernate-configuration>

@@ -11,7 +11,7 @@ public interface OrderDao {
 
     Optional<Order> get(Long id);
 
-    Optional<List<Order>> getAll();
+    List<Order> getAll();
 
     Optional<Order> update(Order order);
 

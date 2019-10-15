@@ -6,11 +6,11 @@ import com.akukhtin.ishop.dao.OrderDao;
 import com.akukhtin.ishop.dao.RoleDao;
 import com.akukhtin.ishop.dao.UserDao;
 
+import com.akukhtin.ishop.dao.hibernate.BucketDaoHibernateImpl;
 import com.akukhtin.ishop.dao.hibernate.ItemDaoHibernateImpl;
-import com.akukhtin.ishop.dao.jdbc.BucketDaoJdbcImpl;
-import com.akukhtin.ishop.dao.jdbc.OrderDaoJdbcImpl;
-import com.akukhtin.ishop.dao.jdbc.RoleDaoJdbcImpl;
-import com.akukhtin.ishop.dao.jdbc.UserDaoJdbcImpl;
+import com.akukhtin.ishop.dao.hibernate.OrderDaoHibernateImpl;
+import com.akukhtin.ishop.dao.hibernate.RoleDaoHibernateImpl;
+import com.akukhtin.ishop.dao.hibernate.UserDaoHibernateImpl;
 import com.akukhtin.ishop.service.BucketService;
 import com.akukhtin.ishop.service.ItemService;
 import com.akukhtin.ishop.service.OrderService;
@@ -96,28 +96,28 @@ public class Factory {
 
     public static BucketDao getBucketDao() {
         if (bucketDaoInstanse == null) {
-            bucketDaoInstanse = new BucketDaoJdbcImpl(connection);
+            bucketDaoInstanse = new BucketDaoHibernateImpl();
         }
         return bucketDaoInstanse;
     }
 
     public static OrderDao getOrderDao() {
         if (orderDaoInstanse == null) {
-            orderDaoInstanse = new OrderDaoJdbcImpl(connection);
+            orderDaoInstanse = new OrderDaoHibernateImpl();
         }
         return orderDaoInstanse;
     }
 
     public static UserDao getUserDao() {
         if (userDaoInstanse == null) {
-            userDaoInstanse = new UserDaoJdbcImpl(connection);
+            userDaoInstanse = new UserDaoHibernateImpl();
         }
         return userDaoInstanse;
     }
 
     public static RoleDao getRoleDao() {
         if (roleDaoInstanse == null) {
-            roleDaoInstanse = new RoleDaoJdbcImpl(connection);
+            roleDaoInstanse = new RoleDaoHibernateImpl();
         }
         return roleDaoInstanse;
     }

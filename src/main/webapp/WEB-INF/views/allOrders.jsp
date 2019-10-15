@@ -29,17 +29,13 @@
                 <c:out value="${order.id}" />
             </td>
             <td>
-                <c:out value="${order.userId}" />
+                <c:out value="${order.user.id}" />
             </td>
             <td>
                 <a href="${pageContext.request.contextPath}/servlet/deleteOrder?order_id=${order.id}">DEL</a>
             </td>
             <td>
                 <a href="${pageContext.request.contextPath}/servlet/getItemsFromOrder?order_id=${order.id}">SHOW</a>
-                <a href="/ishop_war_exploded/servlet/deleteOrder?order_id=${order.id}">DEL</a>
-            </td>
-            <td>
-                <a href="/ishop_war_exploded/servlet/getItemsFromOrder?order_id=${order.id}">SHOW</a>
             </td>
         </tr>
     </c:forEach>
@@ -47,7 +43,6 @@
 
 <br>
 <a href="${pageContext.request.contextPath}/servlet/allItems"><button type="submit" class="registerbtn">All Items</button></a>
-<a href="/ishop_war_exploded/servlet/allItems"><button type="submit" class="registerbtn">All Items</button></a>
 
 </body>
 </html>
