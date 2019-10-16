@@ -27,7 +27,7 @@ public class OrderDaoHibernateImpl implements OrderDao {
             orderId = (Long) session.save(order);
             transaction.commit();
         } catch (Exception e) {
-            logger.error("Can't create order");
+            logger.error("Can't create order",e);
             if (transaction != null) {
                 transaction.rollback();
             }
@@ -46,7 +46,7 @@ public class OrderDaoHibernateImpl implements OrderDao {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             order = session.get(Order.class, id);
         } catch (Exception e) {
-            logger.error("Can't get order");
+            logger.error("Can't get order",e);
         }
         return Optional.ofNullable(order);
     }
@@ -57,7 +57,7 @@ public class OrderDaoHibernateImpl implements OrderDao {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             orders = session.createCriteria(Order.class).list();
         } catch (Exception e) {
-            logger.error("Can't get orders");
+            logger.error("Can't get orders",e);
         }
         return orders;
     }
@@ -72,7 +72,7 @@ public class OrderDaoHibernateImpl implements OrderDao {
             session.update(order);
             transaction.commit();
         } catch (Exception e) {
-            logger.error("Can't update order");
+            logger.error("Can't update order",e);
             if (transaction != null) {
                 transaction.rollback();
             }
@@ -95,7 +95,7 @@ public class OrderDaoHibernateImpl implements OrderDao {
             session.delete(order);
             transaction.commit();
         } catch (Exception e) {
-            logger.error("Can't delete order");
+            logger.error("Can't delete order",e);
             if (transaction != null) {
                 transaction.rollback();
             }
@@ -116,7 +116,7 @@ public class OrderDaoHibernateImpl implements OrderDao {
             session.delete(order);
             transaction.commit();
         } catch (Exception e) {
-            logger.error("Can't delete order");
+            logger.error("Can't delete order",e);
             if (transaction != null) {
                 transaction.rollback();
             }
@@ -142,7 +142,7 @@ public class OrderDaoHibernateImpl implements OrderDao {
             query.executeUpdate();
             transaction.commit();
         } catch (Exception e) {
-            logger.error("Failed to add the item into the order");
+            logger.error("Failed to add the item into the order",e);
             if (transaction != null) {
                 transaction.rollback();
             }
