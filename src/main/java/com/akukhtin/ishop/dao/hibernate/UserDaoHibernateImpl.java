@@ -6,9 +6,11 @@ import com.akukhtin.ishop.model.Order;
 import com.akukhtin.ishop.model.User;
 import com.akukhtin.ishop.util.HashUtil;
 import com.akukhtin.ishop.util.HibernateUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -143,7 +145,8 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public List<Order> getOrders(Long userId) {
-        return null;
+        List<Order> orders = get(userId).get().getOrders();
+        return orders;
     }
 
     @Override

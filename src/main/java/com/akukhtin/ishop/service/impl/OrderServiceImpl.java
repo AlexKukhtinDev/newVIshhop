@@ -1,6 +1,7 @@
 package com.akukhtin.ishop.service.impl;
 
 import com.akukhtin.ishop.dao.OrderDao;
+import com.akukhtin.ishop.dao.UserDao;
 import com.akukhtin.ishop.lib.Inject;
 import com.akukhtin.ishop.lib.Service;
 import com.akukhtin.ishop.model.Item;
@@ -15,10 +16,14 @@ public class OrderServiceImpl implements OrderService {
 
     @Inject
     private static OrderDao orderDao;
+    @Inject
+    private static UserDao userDao;
 
     @Override
     public Optional<Order> completeOrder(List<Item> items, Long userId) {
-        Order order = new Order(userId, items);
+        Order order = new Order();
+        order.setItems(items);
+        order.setUser(userDao.get(userId).get());
         orderDao.create(order);
         return Optional.of(order);
     }
@@ -34,14 +39,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Optional<List<Order>> getAll() {
+    public List<Order> getAll() {
         return orderDao.getAll();
     }
 
     @Override
-    public Optional<List<Item>> getAllItems(Long orderId) {
-        Optional<Order> order = orderDao.get(orderId);
-        return Optional.ofNullable(order.get().getItems());
+    public List<Item> getAllItems(Long orderId) {
+        Optional<Order> order = get(orderId);
+        return order.get().getItems();
     }
 
     @Override
